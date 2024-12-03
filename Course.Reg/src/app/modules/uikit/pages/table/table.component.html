@@ -1,0 +1,95 @@
+<div class="mb-4 flex justify-between">
+  <div class="inline-block">
+    <h3 class="font-semibold text-foreground">Search Courses</h3>
+    <div class="space-x-1 text-xs font-medium text-muted-foreground">
+      <a href="" class="hover:text-primary">All Courses:</a>
+<!--      <span class="text-foreground">49,053</span>-->
+    </div>
+  </div>
+</div>
+
+<div class="flex min-w-full flex-col rounded-xl border border-muted/20 bg-background p-2">
+  <app-table-action></app-table-action>
+  <div class="overflow-x-auto">
+    <table
+      class="table w-full table-auto border-collapse border-0 text-left align-middle leading-5 text-muted-foreground">
+      <thead class="border border-muted/20 text-xs text-muted-foreground">
+        <tr app-table-header (onCheck)="toggleUsers($event)"></tr>
+      </thead>
+      <tbody>
+        @for (user of users(); track $index) {
+        <tr class="hover:bg-card/50" (click)="openUserDetails(user)" app-table-row [user]="user"></tr>
+        } @empty {
+        <tr>
+          <td class="py-4 text-center text-sm" colspan="7">No users found</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+
+  <div *ngIf="showModal" class="fixed text-muted-foreground text-center px-32 py-24 inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-background p-6 rounded-lg shadow-2xl w-full h-full relative">
+      <div class="flex justify-between items-center">
+        <h2 class="text-2xl font-semibold">User Details</h2>
+      </div>
+
+      <!-- User Avatar -->
+      <div class="flex justify-center mt-4">
+        <img class="h-24 w-24 rounded-full" src="https://ui-avatars.com/api/?name={{ selectedUser?.name }}&background=random" alt="User Avatar" />
+      </div>
+
+      <!-- User Details -->
+<!--      <div class="mt-6">-->
+<!--        <div class="text-lg font-semibold">{{ selectedUser?.name }}</div>-->
+<!--        <p class="text-sm ">{{ selectedUser?.email }}</p>-->
+<!--        <p class="text-sm ">Username: {{ selectedUser?.username }}</p>-->
+<!--        <p class="text-sm ">Occupation: {{ selectedUser?.occupation }}</p>-->
+
+<!--        <div class="mt-4">-->
+<!--          <h3 class="font-semibold">Hobbies:</h3>-->
+<!--          <div class="space-x-1">-->
+<!--          <span *ngFor="let hobby of selectedUser?.hobbies" class="inline-block rounded-[30px] bg-yellow-500/10 px-2 py-0.5 text-xs font-medium text-yellow-800">-->
+<!--            {{ hobby }}-->
+<!--          </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+      <!-- User Details Section with Tailwind CSS Styling -->
+      <div class="mt-6 space-y-4">
+        <!-- User's Name -->
+        <div class="text-xl font-semibold text-gray-800">{{ selectedUser?.name }}</div>
+
+        <!-- User's Email -->
+        <p class="text-sm text-gray-600">{{ selectedUser?.email }}</p>
+
+        <!-- Username -->
+        <p class="text-sm text-gray-600">
+          <strong>Username:</strong> {{ selectedUser?.username }}
+        </p>
+
+        <!-- Occupation -->
+        <p class="text-sm text-gray-600">
+          <strong>Occupation:</strong> {{ selectedUser?.occupation }}
+        </p>
+
+        <!-- Hobbies Section -->
+        <div>
+          <h3 class="font-semibold text-gray-700 mt-4">Hobbies:</h3>
+          <div class="space-x-2">
+      <span *ngFor="let hobby of selectedUser?.hobbies" class="inline-block rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-medium text-yellow-800">
+        {{ hobby }}
+      </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Close Button at the Bottom -->
+      <div class="absolute top-2 right-2">
+        <button (click)="closeModal()" class="text-red-500 font-bold text-xl">×</button>
+      </div>
+    </div>
+  </div>
+<!--  <app-table-footer></app-table-footer>-->
+/</div>
